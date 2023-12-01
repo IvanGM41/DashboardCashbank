@@ -1,0 +1,26 @@
+#botonLogin {
+    transition: all 0.2s ease-in-out;
+    background-color:darkblue;
+    color: white;
+    border: none;    
+    padding: 8px 20px;
+}
+
+#botonLogin:hover {
+    background-color: rgb(230, 60, 0);
+    color: white;
+}
+
+#botonForm {
+    transition: all 0.2s ease-in-out;
+    background-color:darkblue;
+    color: white;
+    border: none;    
+    padding: 3px 20px;
+    font-size: small;    
+}
+
+#botonForm:hover {
+    background-color: rgb(230, 60, 0);
+    color: white;
+}

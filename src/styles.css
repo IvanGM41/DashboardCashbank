@@ -1,0 +1,52 @@
+.app {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;    
+    background-color: white;
+  }
+  
+  input[type="TextField"], input[type="password"] 
+  {        
+    height: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color:royalblue;
+    font-weight: bold;
+  }
+  
+  .button-container 
+  {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form {
+    background-color: rgba(183, 196, 201, 0.452);
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+   
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .title {
+    color:black;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;    
+    margin-bottom: 20px;
+  }
+  
+  .input-container {    
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px;    
+  }

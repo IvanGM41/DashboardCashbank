@@ -1,0 +1,46 @@
+#imagenLogo 
+{  
+    padding: 10px 610px;
+}
+
+#titleUsuario
+{
+    color: darkblue;
+    font-weight: bold;
+    text-align: left;        
+}
+
+#valueUsuario
+{
+    color: rgb(230, 60, 0);
+    font-weight: bold;    
+}
+
+#titleCaja
+{    
+    color: darkblue;
+    font-weight: bold;    
+}  
+
+#title
+{    
+    color: darkblue;
+    font-weight: bold;    
+}
+
+#value
+{    
+    color: rgb(230, 60, 0);
+    font-weight: bold;    
+}
+
+#menu
+{    
+    color: rgb(68, 150, 216);
+    font-weight: bold;    
+}
+
+#motivo
+{
+    resize: none;
+}
