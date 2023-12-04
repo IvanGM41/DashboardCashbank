@@ -8,6 +8,8 @@ import funcionCashBank from './Servicio';
 import { funcionCashBank_2 } from './Servicio';
 import Boton from './Boton';
 import clsx from 'clsx';
+import './App.css'
+import MapSection from './Mapa';
 
 const style = 
 {
@@ -25,30 +27,37 @@ const style =
 };
 
 export default function Catalogo() 
-{  
+{      
   let url = '';
    
   const [caja, setCaja] = useState([]);   
   const [open, setOpen] = useState(false);
   const [catalogo, setCatalogo] = useState([]);
-  const tk = localStorage.getItem('token');
-  
-  const handleOpen = (e) => {setCaja(e); setOpen(true)};
+  const tk = localStorage.getItem('token'); 
+  const [location] = useState([]);
+    
+  const handleOpen = (e) => {
+    setCaja(e); setOpen(true);
+    var geoLocal = e[cajon_geo_loc];
+    var arregloGeoLocal = geoLocal.split(',');
+    const location = {lat:arregloGeoLocal[0], lng:arregloGeoLocal[1], address:''}
+    localStorage.setItem(location);
+  };
   const handleClose = (caja) => {    
     funcionBusqueda(caja['nombre_cashbank'],tk);
     setCaja([]);
-    setOpen(false);
+    setOpen(false);    
   };
 
   function formatoFecha(fecha, formato) 
   {
-    const map = 
+    const mapeo = 
     {
         dd: fecha.getDate(),
         mm: fecha.getMonth() + 1,
         yyyy: fecha.getFullYear()
     }  
-    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched]);
+    return formato.replace(/dd|mm|yyyy/gi, matched => mapeo[matched]);
   }
 
   const funcionBusqueda = function (nomCaja, tk) 
@@ -80,7 +89,8 @@ export default function Catalogo()
         if(nomCaja==='')
           comboBox(datos);             
       }      
-    });     
+    });
+         
   }
 
   const funcionActualizar = function (caja, estatus, motivo, urlGeo) 
@@ -171,13 +181,13 @@ export default function Catalogo()
   useEffect(() => 
   { 
     if(catalogo.length===0)
-      funcionBusqueda('',tk); 
+      funcionBusqueda('',tk);
   });
-  
-  return(                                       
-    <div id='divCatalogo'>                          
+ 
+  return(                                           
+    <div id='divCatalogo' className='App'>                          
       <div id='divBusqueda'>        
-        <form id='formBusqueda'>                         
+        <form id='formBusqueda'>                   
           <Box sx={{height:50, display:'flex', alignItems:'baseline', '& > :not(style)':{ m:1 }}}>                                                                                                          
           <label id='titleCaja'>&ensp;Caja:</label> 
             <select id='idNomCaja' onChange={(e) => 
@@ -213,7 +223,7 @@ export default function Catalogo()
             columnHeaderHeight={30}                  
             initialState={{pagination:{paginationModel:{pageSize:10}}}}
             pageSizeOptions={[10]}
-            onRowClick={ (e) => {handleOpen(e.row)}}                                                     
+            onRowClick={ (e) => {handleOpen(e.row);}}                                                     
           />              
         </Box>                                                   
       </div>                
@@ -226,7 +236,7 @@ export default function Catalogo()
           aria-labelledby='parent-modal-title'
           aria-describedby='parent-modal-description'                               
         >
-        <Box sx={{ ...style, width: 'auto', height:'580px', bgcolor:'lavender'}}>                  
+        <Box sx={{ ...style, width: '58%', height:'90%', bgcolor:'lavender'}}>                  
           <h6 id='title'>Caja: <span id='value'>{caja['nombre']}</span></h6>        
           <h6 id='title'>Estatus actual: <span id='value'>{caja['estado']}</span></h6>        
           <p id='menu'>Selecciona el nuevo estatus:</p>                           
@@ -243,8 +253,11 @@ export default function Catalogo()
           <h6 id='menu'>Motivo de actualización:</h6>
           <textarea id='motivo' rows="5" cols="25" defaultValue={caja['motivo_estatus']} disabled={caja['estado']==='CAN'?true:false}/><br/><br/>
           <h6 id='url'>URL_Geo_Loc:</h6>               
-          <input type='text' id='urlText' style={{width:'100%'}} defaultValue={caja['url_geo_loc']} disabled={caja['estado']==='CAN'?true:false}></input>
-          <Button style={{position:'absolute', top:'100%', transform:'translateX(-220%) translateY(-120%)'}}
+          <input type='text' id='urlText' style={{width:'33%'}} defaultValue={caja['url_geo_loc']} disabled={caja['estado']==='CAN'?true:false}></input>
+          <div style={{width:'450px', transform:'translateX(65%) translateY(-75%)'}}>
+            <MapSection location={location} zoomLevel={17} /> 
+          </div>
+          <Button style={{position:'absolute', top:'100%', transform:'translateX(20%) translateY(-500%)'}}
             onClick={() => 
             {
                 var estatus='';
@@ -273,8 +286,7 @@ export default function Catalogo()
                 }
               }} disabled={caja['estado']==='CAN'?true:false}>Actualizar
             </Button>
-
-          <Button style={{position:'absolute', top:'100%', transform:'translateX(-150%) translateY(-120%)'}} onClick={handleClose}>Cerrar</Button>                                               
+          <Button style={{position:'absolute', top:'100%', transform:'translateX(220%) translateY(-500%)'}} onClick={handleClose}>Cerrar</Button>                                               
         </Box>
         </Modal>
         </>
