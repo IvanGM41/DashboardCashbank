@@ -34,14 +34,30 @@ export default function Catalogo()
   const [open, setOpen] = useState(false);
   const [catalogo, setCatalogo] = useState([]);
   const tk = localStorage.getItem('token'); 
-  const [location] = useState([]);
-    
+  /*
+  const location = 
+  {
+    lat:19.40243144771206,
+    lng:-99.27498875699929,
+    address:'Via Magna 25, Bosque de las Palmas, 52760 Ciudad de México, Méx.'
+  }
+*/
+  const geoLocalizacion = (geoLocal) =>
+  {   
+    var cadenaGeoLocal = geoLocal;
+    var arregloGeoLocal = cadenaGeoLocal.split(',');
+    //const location = {lat:arregloGeoLocal[0].replace("\"").replace("\""), lng:arregloGeoLocal[1].replace("\"").replace("\""), address:'vacio',}    
+        
+    const location = {
+      address: 'Prueba1',
+      lat: Number(arregloGeoLocal[0]),
+      lng: Number(arregloGeoLocal[1]),
+    } 
+    return location;
+  }
+      
   const handleOpen = (e) => {
     setCaja(e); setOpen(true);
-    var geoLocal = e['cajon_geo_loc'];
-    var arregloGeoLocal = geoLocal.split(',');
-    const local = {lat:arregloGeoLocal[0], lng:arregloGeoLocal[1], address:''}
-    localStorage.setItem('location',local);
   };
   const handleClose = (caja) => {    
     funcionBusqueda(caja['nombre_cashbank'],tk);
@@ -223,7 +239,7 @@ export default function Catalogo()
             columnHeaderHeight={30}                  
             initialState={{pagination:{paginationModel:{pageSize:10}}}}
             pageSizeOptions={[10]}
-            onRowClick={ (e) => {handleOpen(e.row);}}                                                     
+            onRowClick={ (e) => {handleOpen(e.row)}}                                                   
           />              
         </Box>                                                   
       </div>                
@@ -253,9 +269,9 @@ export default function Catalogo()
           <h6 id='menu'>Motivo de actualización:</h6>
           <textarea id='motivo' rows="5" cols="25" defaultValue={caja['motivo_estatus']} disabled={caja['estado']==='CAN'?true:false}/><br/><br/>
           <h6 id='url'>URL_Geo_Loc:</h6>               
-          <input type='text' id='urlText' style={{width:'33%'}} defaultValue={caja['url_geo_loc']} disabled={caja['estado']==='CAN'?true:false}></input>
+          <input type='text' id='urlText' style={{width:'33%'}} defaultValue={caja['url_geo_loc']} disabled={caja['estado']==='CAN'?true:false}></input>          
           <div style={{width:'450px', transform:'translateX(65%) translateY(-75%)'}}>
-            <MapSection location={location} zoomLevel={17} /> 
+            <MapSection location={geoLocalizacion(caja['cajon_geo_loc'])} zoomLevel={17} />
           </div>
           <Button style={{position:'absolute', top:'100%', transform:'translateX(20%) translateY(-500%)'}}
             onClick={() => 

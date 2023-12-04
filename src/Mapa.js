@@ -13,7 +13,7 @@ const LocationPin = ({ text }) => (
 )
 
 const Mapa = ({ location, zoomLevel }) => 
-(
+(  
   <div className="map">
     <h2 className="map-h2">Mapa</h2>
     <div className="google-map">
