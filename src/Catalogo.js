@@ -38,10 +38,10 @@ export default function Catalogo()
     
   const handleOpen = (e) => {
     setCaja(e); setOpen(true);
-    var geoLocal = e[cajon_geo_loc];
+    var geoLocal = e['cajon_geo_loc'];
     var arregloGeoLocal = geoLocal.split(',');
-    const location = {lat:arregloGeoLocal[0], lng:arregloGeoLocal[1], address:''}
-    localStorage.setItem(location);
+    const local = {lat:arregloGeoLocal[0], lng:arregloGeoLocal[1], address:''}
+    localStorage.setItem('location',local);
   };
   const handleClose = (caja) => {    
     funcionBusqueda(caja['nombre_cashbank'],tk);
