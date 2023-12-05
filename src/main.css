@@ -44,3 +44,26 @@
 {
     resize: none;
 }
+
+#titMapa
+{
+    color: rgb(68, 150, 216);
+    font-weight: bold;  
+}
+
+#idLat
+{
+    color: rgb(230, 60, 0);
+    font-weight: bold;
+}
+
+#idLng
+{
+    color: rgb(230, 60, 0);
+    font-weight: bold;
+}
+#geo
+{
+    color:darkblue;
+    font-weight: bold;
+}

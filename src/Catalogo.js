@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 import funcionCashBank from './Servicio';
 import { funcionCashBank_2 } from './Servicio';
 import Boton from './Boton';
@@ -34,22 +33,26 @@ export default function Catalogo()
   const [open, setOpen] = useState(false);
   const [catalogo, setCatalogo] = useState([]);
   const tk = localStorage.getItem('token'); 
-  /*
-  const location = 
-  {
-    lat:19.40243144771206,
-    lng:-99.27498875699929,
-    address:'Via Magna 25, Bosque de las Palmas, 52760 Ciudad de México, Méx.'
-  }
-*/
+
   const geoLocalizacion = (geoLocal) =>
   {   
     var cadenaGeoLocal = geoLocal;
-    var arregloGeoLocal = cadenaGeoLocal.split(',');
-    //const location = {lat:arregloGeoLocal[0].replace("\"").replace("\""), lng:arregloGeoLocal[1].replace("\"").replace("\""), address:'vacio',}    
-        
-    const location = {
-      address: 'Prueba1',
+    var arregloGeoLocal = cadenaGeoLocal.split(',');    
+    
+    //var Http = new XMLHttpRequest();
+    //var latitud = Number(arregloGeoLocal[0]);
+    //var logitud = Number(arregloGeoLocal[1]);
+    //var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitud + ',' + logitud
+    //+ '&key=AIzaSyBHawWrb2oiCkHSZ-0jvGztVGjgWPXiSJ4';
+    //Http.open('POST', url);
+    //Http.send();
+    //Http.onreadystatechange = (e) => {
+    //  console.log(Http.responseText);
+    //}
+
+    const location = 
+    {
+      address: 'Cashbank',
       lat: Number(arregloGeoLocal[0]),
       lng: Number(arregloGeoLocal[1]),
     } 
@@ -252,7 +255,7 @@ export default function Catalogo()
           aria-labelledby='parent-modal-title'
           aria-describedby='parent-modal-description'                               
         >
-        <Box sx={{ ...style, width: '58%', height:'90%', bgcolor:'lavender'}}>                  
+        <Box sx={{ ...style, width: '58%', height:'95%', bgcolor:'lavender'}}>                  
           <h6 id='title'>Caja: <span id='value'>{caja['nombre']}</span></h6>        
           <h6 id='title'>Estatus actual: <span id='value'>{caja['estado']}</span></h6>        
           <p id='menu'>Selecciona el nuevo estatus:</p>                           
@@ -270,10 +273,10 @@ export default function Catalogo()
           <textarea id='motivo' rows="5" cols="25" defaultValue={caja['motivo_estatus']} disabled={caja['estado']==='CAN'?true:false}/><br/><br/>
           <h6 id='url'>URL_Geo_Loc:</h6>               
           <input type='text' id='urlText' style={{width:'33%'}} defaultValue={caja['url_geo_loc']} disabled={caja['estado']==='CAN'?true:false}></input>          
-          <div style={{width:'450px', transform:'translateX(65%) translateY(-75%)'}}>
+          <div style={{width:'450px', transform:'translateX(65%) translateY(-70%)'}}>
             <MapSection location={geoLocalizacion(caja['cajon_geo_loc'])} zoomLevel={17} />
           </div>
-          <Button style={{position:'absolute', top:'100%', transform:'translateX(20%) translateY(-500%)'}}
+          <Boton id='botonForm' style={{position:'absolute', top:'100%', transform:'translateX(20%) translateY(-700%)'}}
             onClick={() => 
             {
                 var estatus='';
@@ -296,13 +299,13 @@ export default function Catalogo()
                 else
                 {                                                                      
                   funcionActualizar(caja,estatus,motivo,url);
-                  alert('Estatus anterior: '+caja['estado']+' Estatus actualizado a: '+estatus)
+                  alert('¡Estatus actualizado: '+estatus+'!');
                   funcionBusqueda(caja['nombre_cashbank'],tk);                                                                   
                   handleClose(caja);
                 }
               }} disabled={caja['estado']==='CAN'?true:false}>Actualizar
-            </Button>
-          <Button style={{position:'absolute', top:'100%', transform:'translateX(220%) translateY(-500%)'}} onClick={handleClose}>Cerrar</Button>                                               
+            </Boton>
+          <Boton id='botonForm' style={{position:'absolute', top:'100%', transform:'translateX(220%) translateY(-700%)'}} onClick={handleClose}>Cerrar</Boton>                                               
         </Box>
         </Modal>
         </>

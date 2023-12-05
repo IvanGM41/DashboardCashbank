@@ -46,20 +46,20 @@ function App()
     setUsuario(userData);   
       
     const request = 
-    {      
+    {            
       cache:'no-cache',
       referrerPolicy: 'no-referrer',
       method:'POST', 
-      headers:{'Content-Type':'application/json'}, 
+      headers:{'Content-Type':'application/json'},       
       body:JSON.stringify({email:userData.user, pass:userData.pass}),                
     };
-    
+
     funcionCashBank(url, request, (error, datos) =>
     {
       if(error) 
-      {
-        console.log(error); 
-        setErrorMessages(error);        
+      {        
+        console.log(error);
+        setErrorMessages('invalid user or password');                 
         return;        
       }
       else 
@@ -70,8 +70,8 @@ function App()
           setErrorMessages(datos);
         else
           setErrorMessages('');                
-      }      
-    });        
+      }     
+    });  
   };
 
   function renderForm()
@@ -91,7 +91,7 @@ function App()
             <div className='button-container'>
               <Boton id='botonLogin' onClick={handleSubmit}>Enviar</Boton>
             </div><br/>
-            <div className='error' align='center'>{errorMessages.message}</div>              
+            <div className='error' align='center'>{errorMessages}</div>              
           </form>
         </div>
       </div>    
